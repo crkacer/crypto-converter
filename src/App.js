@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Combobox} from 'react-widgets';
 import Chart from './components/Chart';
+import LChart from './components/LChart';
+
 import './App.css';
 import 'react-widgets/dist/css/react-widgets.css';
 
@@ -23,19 +25,21 @@ class App extends Component {
     }
     return (
       <div>
+        <LChart x={this.state.crypto} y={this.state.currency}/>
         <Combobox
-      data={arrCrypto}
-      defaultValue={"BTC"}
-      textField='crypto'
-      onChange={chooseCrypto}
-    />
+        data={arrCrypto}
+        defaultValue={"BTC"}
+        textField='crypto'
+        onChange={chooseCrypto}
+        className="selectCrypto"
+        />
         <Combobox
         data={arrCurrency}
         defaultValue={"USD"}
         textField='currency'
         onChange={chooseCurrency}
-      />
-      <Chart crypto={this.state.crypto} currency={this.state.currency}/>
+        className="selectCurrency"
+        />
       </div>
     );
   }

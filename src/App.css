@@ -26,3 +26,15 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.selectCrypto {
+  width: 20%;
+  float: left;
+  margin-left: 30%;
+}
+
+.selectCurrency {
+  width: 20%;
+  float: left;
+  margin: auto;
+}
