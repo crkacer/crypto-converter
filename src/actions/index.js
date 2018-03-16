@@ -1,24 +1,20 @@
 import axios from "axios";
 
-export const FETCH_POSTS = "fetch_posts";
-export const SELECT_CURRENCY = "select_currency";
-export const SELECT_CRYPTO = "select_crypto";
 
-
-export function fetchPosts() {
-  const request = axios.get(`${ROOT_URL}/posts${API_KEY}`);
-
-  return {
-    type: FETCH_POSTS,
-    payload: request
-  };
+export function selectCurrency(currency) {
+    // selectBook is an ActionCreator, it needs to return an action,
+    // an object with a type property.
+    return {
+      type: "select_currency",
+      payload: currency
+    };
 }
-
-export function fetchPost(id) {
-  const request = axios.get(`${ROOT_URL}/posts/${id}${API_KEY}`);
-
-  return {
-    type: FETCH_POST,
-    payload: request
-  };
+  
+export function selectCrypto(crypto) {
+    // selectBook is an ActionCreator, it needs to return an action,
+    // an object with a type property.
+    return {
+      type: "select_crypto",
+      payload: crypto
+    };
 }

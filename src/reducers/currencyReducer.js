@@ -1,9 +1,9 @@
-import { SELECT_CURRENCY } from "../actions";
+import { selectCurrency } from "../actions";
 
 export default function(state = {}, action) {
   switch (action.type) {
-    case SELECT_CURRENCY:
-      return { ...state, [action.payload.data.id]: action.payload.data };
+    case "select_currency":
+      return action.payload;
     default:
       return state;
   }

@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import LineChart from 'react-linechart';
 import 'react-linechart/dist/styles.css';
 import jsonData from '../data.json';
-// import jsonTest from '../test.json';
+import { connect } from "react-redux";
+import { selectCrypto, selectCurrency } from "../actions/index";
+import { bindActionCreators } from "redux";
+
  
-export default class LChart extends Component {
+class LChart extends Component {
     constructor(props) {
         super(props);
         this.getData = this.getData.bind(this);
@@ -25,22 +28,25 @@ export default class LChart extends Component {
         let data = jsonData;
         let jso = {...this.state.dataPrice};
         console.log(data[crypto][currency]);
-        console.log(jso[crypto][currency]);
-        console.log(JSON.stringify(data) === JSON.stringify(this.state.dataPrice));
+        console.log(this.props);
+        // console.log(jso[crypto][currency]);
+        // console.log(JSON.stringify(data) === JSON.stringify(this.state.dataPrice));
+        let selectedCrypto = this.props.selectCrypto(crypto).payload;
+        let selectedCurrency = this.props.selectCurrency(currency).payload;
 
-        return data[crypto][currency];
+        return data[selectedCrypto][selectedCurrency];
     }
 
     render() {
         let xAxis = "Year";
-        let yAxis = this.props.y;
-        let crypto = this.props.x;
-        let data = this.getData(this.props.x, this.props.y);
+        let yAxis = this.props.currency;
+        let crypto = this.props.crypto;
+        let data = this.getData(this.props.crypto, this.props.currency);
         
         return (
             <div>
                 <div className="App">
-                    <h1>{this.props.x}/{this.props.y}</h1>
+                    <h1>{this.props.crypto}/{this.props.currency}</h1>
                     <LineChart 
                         width={600}
                         height={400}
@@ -53,3 +59,16 @@ export default class LChart extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        dataPrice: state.dataPrice
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ selectCrypto, selectCurrency }, dispatch);
+}
+  
+export default connect(mapStateToProps, mapDispatchToProps)(LChart);
+  
