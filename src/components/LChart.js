@@ -18,18 +18,13 @@ class LChart extends Component {
     componentDidMount() {
         
   
-      }
+    }
 
     getData = (crypto, currency) => {
         
-        // let data = this.props.getHistoricalPrice(crypto, currency, "1800").payload;
-        let data = jsonData;
-        // console.log(data);
         this.props.getHistoricalPrice(crypto, currency, "1800");
-        let data1 = this.props.dataPrice;
-        console.log(data1);
-        // return this.props.dataPrice;
-        return data[crypto][currency];
+        console.log(this.props);
+        return Array.from(this.props.dataPrice);
     }
 
     render() {

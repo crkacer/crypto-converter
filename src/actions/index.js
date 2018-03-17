@@ -21,10 +21,26 @@ export function selectCrypto(crypto) {
 
 export function getHistoricalPrice(crypto, currency, limit) {
 
-  // let url = "https://min-api.cryptocompare.com/data/histoday?fsym="+ crypto +"&tsym="+ currency +"&limit="+ limit +"&aggregate=3&e=CCCAGG";
-  // let request = axios.get(url);
+  const url = "https://min-api.cryptocompare.com/data/histoday?fsym="+ crypto +"&tsym="+ currency +"&limit="+ limit +"&aggregate=3&e=CCCAGG";
+  let historical = [];
   let dataPrice = jsonData[crypto][currency];
-  let apiData = {};
+
+  const request = axios.get(url)
+    .then((res) => {
+      let hData = res.data.Data.map(data => ({
+        x: (new Date(data.time * 1000)).getFullYear(), 
+        y: data.close
+      }));
+      historical = [{
+        "color": "steelblue", 
+        "points": hData
+      }];
+      console.log(historical);
+    }).catch ((error) => {
+      console.log(error);
+    });
+
+
   return {
     type: "get_price",
     payload: dataPrice

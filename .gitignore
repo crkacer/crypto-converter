@@ -23,4 +23,4 @@ yarn-error.log*
 #components
 /src/components/Chart.js
 /src/components/DChart.js
-/src/test.json
+/src/historical.json
