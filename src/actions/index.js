@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import jsonData from '../data.json';
 
 export function selectCurrency(currency) {
     // selectBook is an ActionCreator, it needs to return an action,
@@ -17,4 +17,16 @@ export function selectCrypto(crypto) {
       type: "select_crypto",
       payload: crypto
     };
+}
+
+export function getHistoricalPrice(crypto, currency, limit) {
+
+  // let url = "https://min-api.cryptocompare.com/data/histoday?fsym="+ crypto +"&tsym="+ currency +"&limit="+ limit +"&aggregate=3&e=CCCAGG";
+  // let request = axios.get(url);
+  let dataPrice = jsonData[crypto][currency];
+  let apiData = {};
+  return {
+    type: "get_price",
+    payload: dataPrice
+  }
 }

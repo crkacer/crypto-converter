@@ -3,7 +3,7 @@ import LineChart from 'react-linechart';
 import 'react-linechart/dist/styles.css';
 import jsonData from '../data.json';
 import { connect } from "react-redux";
-import { selectCrypto, selectCurrency } from "../actions/index";
+import { selectCrypto, selectCurrency, getHistoricalPrice } from "../actions/index";
 import { bindActionCreators } from "redux";
 
  
@@ -12,29 +12,24 @@ class LChart extends Component {
         super(props);
         this.getData = this.getData.bind(this);
         this.state = {};
+        this.props.getHistoricalPrice("BTC", "USD", "1800");
     }
 
     componentDidMount() {
-        let dataPrice = jsonData;
-        // console.log(data1.data);
-        // let dataTest = JSON.parse(jsonTest);
-        this.setState({ dataPrice: dataPrice }, function() {
-            // console.log(this.state.dataPrice);
-        });
+        
+  
       }
 
     getData = (crypto, currency) => {
         
+        // let data = this.props.getHistoricalPrice(crypto, currency, "1800").payload;
         let data = jsonData;
-        let jso = {...this.state.dataPrice};
-        console.log(data[crypto][currency]);
-        console.log(this.props);
-        // console.log(jso[crypto][currency]);
-        // console.log(JSON.stringify(data) === JSON.stringify(this.state.dataPrice));
-        let selectedCrypto = this.props.selectCrypto(crypto).payload;
-        let selectedCurrency = this.props.selectCurrency(currency).payload;
-
-        return data[selectedCrypto][selectedCurrency];
+        // console.log(data);
+        this.props.getHistoricalPrice(crypto, currency, "1800");
+        let data1 = this.props.dataPrice;
+        console.log(data1);
+        // return this.props.dataPrice;
+        return data[crypto][currency];
     }
 
     render() {
@@ -67,7 +62,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ selectCrypto, selectCurrency }, dispatch);
+    return bindActionCreators({ selectCrypto, selectCurrency, getHistoricalPrice }, dispatch);
 }
   
 export default connect(mapStateToProps, mapDispatchToProps)(LChart);
