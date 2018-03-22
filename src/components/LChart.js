@@ -3,35 +3,18 @@ import LineChart from 'react-linechart';
 import 'react-linechart/dist/styles.css';
 import jsonData from '../data.json';
 import { connect } from "react-redux";
-import { selectCrypto, selectCurrency, getHistoricalPrice } from "../actions/index";
+import { selectCrypto, selectCurrency, getHistoricalPrice } from "../actions";
 import { bindActionCreators } from "redux";
 
  
 class LChart extends Component {
-    constructor(props) {
-        super(props);
-        this.getData = this.getData.bind(this);
-        this.state = {};
-        this.props.getHistoricalPrice("BTC", "USD", "1800");
-    }
-
-    componentDidMount() {
-        
-  
-    }
-
-    getData = (crypto, currency) => {
-        
-        this.props.getHistoricalPrice(crypto, currency, "1800");
-        console.log(this.props);
-        return Array.from(this.props.dataPrice);
-    }
 
     render() {
         let xAxis = "Year";
         let yAxis = this.props.currency;
         let crypto = this.props.crypto;
-        let data = this.getData(this.props.crypto, this.props.currency);
+        console.log(this.props.dataPrice);
+        this.props.getHistoricalPrice(this.props.crypto, this.props.currency, "1800");
         
         return (
             <div>
@@ -40,7 +23,7 @@ class LChart extends Component {
                     <LineChart 
                         width={600}
                         height={400}
-                        data={data}
+                        data={Array.from(this.props.dataPrice)}
                         xLabel={xAxis}
                         yLabel={yAxis}
                     />
@@ -52,6 +35,8 @@ class LChart extends Component {
 
 function mapStateToProps(state) {
     return {
+        crypto: state.crypto,
+        currency: state.currency,
         dataPrice: state.dataPrice
     };
 }

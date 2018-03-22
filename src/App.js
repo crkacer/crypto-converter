@@ -1,44 +1,37 @@
 import React, { Component } from 'react';
 import {Combobox} from 'react-widgets';
-import Chart from './components/Chart';
 import LChart from './components/LChart';
-
+import { connect } from "react-redux";
+import { selectCrypto, selectCurrency, getHistoricalPrice } from "./actions";
+import { bindActionCreators } from "redux";
 
 import './App.css';
 import 'react-widgets/dist/css/react-widgets.css';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      crypto: "BTC",
-      currency: "USD"
-    }
+
+  componentDidMount() {
+    this.props.selectCrypto("BTC");
+    this.props.selectCurrency("USD");
   }
+  
   render() {
-    let arrCrypto = ['BTC', 'ETH', 'XRB', 'BCH'];
-    let arrCurrency = ['USD', 'EUR'];
-    const chooseCrypto = (crypto) => {
-      this.setState({crypto})
-    }
-    const chooseCurrency = (currency) => {
-      this.setState({currency})
-    }
+
     return (
       <div>
-        <LChart crypto={this.state.crypto} currency={this.state.currency}/>
+        <LChart crypto={this.props.crypto} currency={this.props.currency}/>
         <Combobox
-        data={arrCrypto}
+        data={this.props.arrCrypto}
         defaultValue={"BTC"}
         textField='crypto'
-        onChange={chooseCrypto}
+        onChange={this.props.selectCrypto}
         className="selectCrypto"
         />
         <Combobox
-        data={arrCurrency}
+        data={this.props.arrCurrency}
         defaultValue={"USD"}
         textField='currency'
-        onChange={chooseCurrency}
+        onChange={this.props.selectCurrency}
         className="selectCurrency"
         />
       </div>
@@ -46,4 +39,18 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+      crypto: state.crypto,
+      currency: state.currency,
+      arrCrypto: state.arrCrypto,
+      arrCurrency: state.arrCurrency,
+      dataPrice: state.dataPrice
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ selectCrypto, selectCurrency, getHistoricalPrice }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
