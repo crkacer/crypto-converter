@@ -1,4 +1,4 @@
-import { getHistoricalPrice } from "../actions";
+import { GET_PRICE } from "../actions";
 
 let initState = {
     crypto: "BTC",
@@ -9,12 +9,8 @@ let initState = {
 
 export default function(state = initState, action) {
   switch (action.type) {
-    case "get_price":
-        return {
-            // ...state,
-            // data: action.payload
-            ...action.payload
-        }
+    case GET_PRICE:
+        return action.payload;
     default:
       return state;
   }
