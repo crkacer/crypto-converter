@@ -7,7 +7,6 @@ class LChart extends Component {
     render() {
         let xAxis = "Year";
         let yAxis = this.props.currency;
-        let crypto = this.props.crypto;
         console.log(this.props);
         
         return (
