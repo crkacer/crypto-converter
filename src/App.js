@@ -3,6 +3,7 @@ import Main from './components/Main';
 import { connect } from "react-redux";
 import { selectCrypto, selectCurrency, getHistoricalPrice } from "./actions";
 import { bindActionCreators } from "redux";
+import promise from "redux-promise";
 
 import './App.css';
 import 'react-widgets/dist/css/react-widgets.css';

@@ -12,6 +12,6 @@ export default function(state = initState, action) {
     case GET_PRICE:
         return action.payload;
     default:
-      return state;
+        return state;
   }
 }

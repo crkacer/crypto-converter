@@ -12,30 +12,26 @@ class Main extends Component {
 
 
     componentDidMount() {
-        this.props.getHistoricalPrice(this.props.crypto, this.props.currency, "1800");
+        this.props.getHistoricalPrice(this.props.crypto, this.props.currency, "200");
         this.aCrypto = this.props.arrCrypto;
         this.aCurrency = this.props.arrCurrency;
     }
     
     chooseCrypto(crypto) {
         this.props.selectCrypto(crypto);
-        this.props.getHistoricalPrice(crypto, this.props.currency, "1800");
+        this.props.getHistoricalPrice(crypto, this.props.currency, "200");
     }
 
     chooseCurrency(currency) {
         this.props.selectCurrency(currency);
-        this.props.getHistoricalPrice(this.props.crypto, currency, "1800");
+        this.props.getHistoricalPrice(this.props.crypto, currency, "200");
     }
 
     render() {
 
         return (
           <div>
-            <LChart 
-              crypto={this.props.crypto} 
-              currency={this.props.currency}
-              dataPrice = {this.props.dataPrice}
-              />
+            <LChart {...this.props} />
             <Combobox
             data={this.aCrypto}
             defaultValue={this.props.crypto}
